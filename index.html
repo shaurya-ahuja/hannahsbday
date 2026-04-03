@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Her 21st — Real Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0D0B0E;
+    --card: #141118;
+    --rose: #E8637A;
+    --rose-dim: rgba(232,99,122,0.12);
+    --gold: #D4A84B;
+    --gold-dim: rgba(212,168,75,0.15);
+    --text: #F2EDE8;
+    --muted: #7A7080;
+    --border: rgba(242,237,232,0.1);
+    --green: #6DBF8A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 64px 24px 48px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(ellipse at 60% -20%, rgba(232,99,122,0.14) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(212,168,75,0.08) 0%, transparent 50%);
+  }
+  .pill {
+    display: inline-block;
+    border: 1px solid var(--rose);
+    color: var(--rose);
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+    animation: pop 0.5s ease forwards;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 9vw, 88px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -1px;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--rose);
+  }
+  .hero-meta {
+    margin-top: 20px;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    animation: fadeUp 0.6s ease 0.4s both;
+  }
+  .hero-meta span { color: var(--gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* LAYOUT */
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  .sec-head {
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 48px 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .sec-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* TIMELINE */
+  .block {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 0 20px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .block:nth-child(2){animation-delay:.05s}
+  .block:nth-child(3){animation-delay:.1s}
+  .block:nth-child(4){animation-delay:.15s}
+  .block:nth-child(5){animation-delay:.2s}
+
+  .btime {
+    text-align: right;
+    padding-right: 20px;
+    padding-top: 3px;
+    border-right: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--rose);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .btime::after {
+    content: '';
+    position: absolute;
+    right: -4.5px;
+    top: 8px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--rose);
+    box-shadow: 0 0 8px var(--rose);
+  }
+  .bbody { padding-left: 4px; }
+  .btitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .bdesc { color: #998FA5; font-size: 11px; margin-bottom: 10px; line-height: 1.8; }
+  .tips { list-style: none; font-size: 10px; }
+  .tips li { color: var(--muted); margin-bottom: 3px; }
+  .tips li::before { content: '› '; color: var(--gold); }
+  .tips li strong { color: var(--text); }
+
+  /* BUDGET */
+  .budget-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .bcard {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bcard::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--rose);
+    opacity: 0.6;
+  }
+  .bcard.green::before { background: var(--green); }
+  .bcard.gold::before { background: var(--gold); }
+
+  .bcat {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .brow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .brow:last-of-type { border: none; }
+  .brow .val { color: var(--text); }
+  .brow.free .val { color: var(--green); }
+  .btot {
+    margin-top: 12px;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--rose);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+  }
+  .btot small { font-family: 'DM Mono'; font-size: 9px; color: var(--muted); }
+
+  /* GRAND */
+  .grand {
+    border: 1px solid var(--rose);
+    border-radius: 4px;
+    padding: 24px 28px;
+    background: var(--rose-dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .grand-label { font-size: 9px; letter-spacing: 0.3em; color: var(--rose); text-transform: uppercase; margin-bottom: 4px; }
+  .grand-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1;
+  }
+  .grand-note { font-size: 9px; color: var(--muted); margin-top: 6px; }
+  .stretch-tip {
+    background: var(--gold-dim);
+    border: 1px solid rgba(212,168,75,0.3);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-size: 10px;
+    color: #C9A06A;
+    margin-bottom: 48px;
+    line-height: 1.9;
+  }
+  .stretch-tip strong { color: var(--gold); }
+
+  /* DECOR */
+  .decor-list { margin-bottom: 48px; }
+  .ditem {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .ditem:last-child { border: none; }
+  .demoji { font-size: 18px; flex-shrink: 0; width: 28px; }
+  .dname { font-size: 12px; color: var(--text); margin-bottom: 2px; }
+  .dhow { font-size: 10px; color: var(--muted); }
+  .dprice { font-size: 11px; color: var(--green); margin-left: auto; flex-shrink: 0; padding-left: 16px; white-space: nowrap; }
+
+  /* SUSHI ORDER */
+  .sushi-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 22px;
+    margin-bottom: 48px;
+  }
+  .srow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--muted);
+  }
+  .srow .sval { color: var(--text); }
+  .srow.total {
+    border-top: 1px solid var(--border);
+    border-bottom: none;
+    margin-top: 8px;
+    padding-top: 12px;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--text);
+  }
+  .stip {
+    margin-top: 14px;
+    font-size: 10px;
+    color: var(--muted);
+    background: rgba(109,191,138,0.08);
+    border-left: 2px solid var(--green);
+    padding: 8px 12px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 36px 24px 48px;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    border-top: 1px solid var(--border);
+  }
+  .footer strong { color: var(--rose); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="pill">HER 21ST · THE REAL PLAN</div>
+  <h1>Night <em>Before</em><br>Into Midnight</h1>
+  <div class="hero-meta">
+    House party → midnight → bars/club · College Park ·
+    <span>Budget: $150–250</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- TIMELINE -->
+  <div class="sec-head">The Night</div>
+
+  <div class="block">
+    <div class="btime">7 PM</div>
+    <div class="bbody">
+      <div class="btitle">🍣 Sushi Boat House Party</div>
+      <div class="bdesc">Order from Wasabi Bistro and lay everything out on your table "boat" style — spread rolls across a long tray or cutting board with soy sauce dishes, chopsticks, and small plates. Looks way more impressive than it sounds. Add some snacks alongside.</div>
+      <ul class="tips">
+        <li><strong>Pick up, don't deliver</strong> — saves $5–8 in fees</li>
+        <li>Order 3–4 Maki Combos + individual rolls to fill the spread</li>
+        <li>Add edamame, gyoza as fillers — cheap and crowd-pleasing</li>
+        <li>Buy a big bag of rice crackers from H Mart as extra filler</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="btime">8 PM</div>
+    <div class="bbody">
+      <div class="btitle">🎰 Casino Pregame</div>
+      <div class="bdesc">Dim the lights, put a gold/black tablecloth over the dining table, scatter some balloons and put on a casino/lounge playlist. Do poker with chips — whoever wins gets bragging rights. Keep drinks flowing. This is where the vibe builds.</div>
+      <ul class="tips">
+        <li>Spotify: "Casino Royale Lounge" playlist is free</li>
+        <li><strong>Dollar Tree</strong> has playing cards, balloons, plastic cups</li>
+        <li>Print a "21" banner free from Canva, tape it up</li>
+        <li>Do a birthday toast at 9 PM with everyone</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="btime">11 PM</div>
+    <div class="bbody">
+      <div class="btitle">🥂 Get Ready Together</div>
+      <div class="bdesc">Everyone gets dressed, takes photos, hypes each other up. This is a whole vibe — do NOT skip it. Put on a hype playlist, set up a little photo spot with the "21" balloons in the background. Last drinks before heading out.</div>
+      <ul class="tips">
+        <li>Take group photos here — lighting is better than the club</li>
+        <li>Birthday girl gets a sash + tiara — Dollar Tree has these</li>
+        <li>Have everyone's Uber ready to book at 11:45</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="btime">12 AM</div>
+    <div class="bbody">
+      <div class="btitle">🎉 Midnight — It's Her Birthday</div>
+      <div class="bdesc">Head out at midnight so you literally arrive at the bar on her birthday. Do the countdown at your place and leave right after. Call the bar/club ahead and mention it's her 21st — many will do a free shot or free entry for the birthday girl.</div>
+      <ul class="tips">
+        <li><strong>Call ahead</strong> — "It's my girlfriend's 21st, what do you do for birthdays?"</li>
+        <li>Pre-book an Uber pool to split transport cost</li>
+        <li>Bring cash — some bars charge card minimums</li>
+        <li>Designate a person to track the group</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="btime">2 AM</div>
+    <div class="bbody">
+      <div class="btitle">🌙 Wind Down</div>
+      <div class="bdesc">Back to yours or grab late night food on the way. Have a small cake ready at home — do the birthday song properly with candles. Way more intimate than doing it in a loud bar.</div>
+      <ul class="tips">
+        <li>Grocery store cakes are $12–18 and totally fine</li>
+        <li>Have water and snacks ready — everyone will need them</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FOOD ORDER -->
+  <div class="sec-head">Food Plan</div>
+  <div class="sushi-box">
+    <div class="srow" style="color:var(--gold);font-size:10px;letter-spacing:0.2em"><span>🍣 WASABI BISTRO (pickup)</span></div>
+    <div class="srow"><span>Maki Combo ×3 (~$14 each)</span><span class="sval">~$42</span></div>
+    <div class="srow"><span>Extra rolls ×3 (~$6 each)</span><span class="sval">~$18</span></div>
+    <div class="srow"><span>Edamame ×2</span><span class="sval">~$8</span></div>
+    <div class="srow"><span>Gyoza ×1</span><span class="sval">~$7</span></div>
+    <div class="srow" style="margin-top:12px;color:var(--gold);font-size:10px;letter-spacing:0.2em"><span>🍕 PIZZA</span></div>
+    <div class="srow"><span>&pizza (free reward)</span><span class="sval" style="color:var(--green)">$0</span></div>
+    <div class="srow"><span>Caesar's/Domino's ×2–3 large (~$8–10 each)</span><span class="sval">~$20–30</span></div>
+    <div class="srow total"><span>Food Total</span><span class="sval">~$95–105</span></div>
+    <div class="stip">💡 Pizza fills people up fast — means you need less sushi. Lay it all out together as a spread: sushi on one end, pizza boxes open on the other. Grab paper plates + napkins from Dollar Tree. Feeds 15 comfortably.</div>
+  </div>
+
+  <!-- BUDGET -->
+  <div class="sec-head">Budget Breakdown</div>
+  <div class="budget-grid">
+
+    <div class="bcard">
+      <div class="bcat">🍣🍕 Food</div>
+      <div class="brow"><span>Wasabi Bistro (pickup)</span><span class="val">~$75</span></div>
+      <div class="brow"><span>&pizza (free reward)</span><span class="val" style="color:var(--green)">$0</span></div>
+      <div class="brow"><span>Caesar's/Domino's ×2–3</span><span class="val">~$20–30</span></div>
+      <div class="brow"><span>Paper plates + napkins</span><span class="val">~$4</span></div>
+      <div class="btot"><small>subtotal</small> ~$99–109</div>
+    </div>
+
+    <div class="bcard green">
+      <div class="bcat">🎰 Decor</div>
+      <div class="brow"><span>Balloons (Dollar Tree)</span><span class="val">~$5</span></div>
+      <div class="brow"><span>Tablecloth + cups</span><span class="val">~$4</span></div>
+      <div class="brow"><span>Sash + tiara</span><span class="val">~$5</span></div>
+      <div class="brow"><span>"21" balloon numbers</span><span class="val">~$8</span></div>
+      <div class="brow"><span>Printed banner (Canva)</span><span class="val">~$0</span></div>
+      <div class="btot" style="color:var(--green)"><small>subtotal</small> ~$22</div>
+    </div>
+
+    <div class="bcard gold">
+      <div class="bcat">🍹 Alcohol</div>
+      <div class="brow"><span>1 handle vodka</span><span class="val">~$20</span></div>
+      <div class="brow"><span>Mixers (cranberry, OJ, Sprite)</span><span class="val">~$12</span></div>
+      <div class="brow"><span>1 bottle wine/prosecco</span><span class="val">~$10</span></div>
+      <div class="brow"><span>Ice + cups</span><span class="val">~$4</span></div>
+      <div class="btot" style="color:var(--gold)"><small>subtotal</small> ~$46</div>
+    </div>
+
+    <div class="bcard">
+      <div class="bcat">🎂 Cake + Extras</div>
+      <div class="brow"><span>Grocery store cake</span><span class="val">~$15</span></div>
+      <div class="brow"><span>Candles</span><span class="val">~$2</span></div>
+      <div class="brow"><span>Club entry (her)</span><span class="val free">Free (call ahead)</span></div>
+      <div class="brow"><span>Your club entry</span><span class="val">~$10–20</span></div>
+      <div class="btot"><small>subtotal</small> ~$27–37</div>
+    </div>
+
+  </div>
+
+  <div class="grand">
+    <div>
+      <div class="grand-label">Total Estimated Cost</div>
+      <div class="grand-note">Solo · 10–15 guests · College Park</div>
+    </div>
+    <div style="text-align:right">
+      <div class="grand-num">$190–205</div>
+      <div class="grand-note">Fits your $150–250 budget ✓ · &pizza saves you ~$15</div>
+    </div>
+  </div>
+
+  <div class="stretch-tip">
+    💡 <strong>To hit ~$150:</strong> Ask 2–3 friends to bring a bottle each (saves ~$40 on alcohol). The free &pizza already saves you a pizza. Order 2 Domino's instead of 3 — between that and the sushi, there's more than enough food.
+  </div>
+
+  <!-- DECOR -->
+  <div class="sec-head">Decor — All Cheap</div>
+  <div class="decor-list">
+    <div class="ditem">
+      <div class="demoji">🎈</div>
+      <div>
+        <div class="dname">Black + Rose Gold Balloons</div>
+        <div class="dhow">Dollar Tree or Party City — grab a mix of 10–15. Cluster them in a corner behind where she'll sit.</div>
+      </div>
+      <div class="dprice">~$5</div>
+    </div>
+    <div class="ditem">
+      <div class="demoji">✨</div>
+      <div>
+        <div class="dname">"21" Foil Balloon Numbers</div>
+        <div class="dhow">Amazon or Party City. The single most effective decoration — stands alone and photographs perfectly.</div>
+      </div>
+      <div class="dprice">~$8</div>
+    </div>
+    <div class="ditem">
+      <div class="demoji">🖨️</div>
+      <div>
+        <div class="dname">Printed Banner</div>
+        <div class="dhow">Make a free "Happy 21st [Name]" banner on Canva. Print at UMD library or CVS for ~$2–3.</div>
+      </div>
+      <div class="dprice">~$2</div>
+    </div>
+    <div class="ditem">
+      <div class="demoji">🃏</div>
+      <div>
+        <div class="dname">Casino Vibe</div>
+        <div class="dhow">Playing cards + a pack of poker chips from Dollar Tree. Scatter cards and chips on the table around the food. Looks intentional.</div>
+      </div>
+      <div class="dprice">~$4</div>
+    </div>
+    <div class="ditem">
+      <div class="demoji">👑</div>
+      <div>
+        <div class="dname">Birthday Girl Sash + Tiara</div>
+        <div class="dhow">Dollar Tree has these. Non-negotiable — she wears it the whole night.</div>
+      </div>
+      <div class="dprice">~$5</div>
+    </div>
+    <div class="ditem">
+      <div class="demoji">💡</div>
+      <div>
+        <div class="dname">Lighting</div>
+        <div class="dhow">Dim your main lights. If you have fairy lights, use them. Put phone flashlights facing up in corners as uplighting. Free.</div>
+      </div>
+      <div class="dprice">$0</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Made for <strong>her 21st</strong> · She pays nothing · You make it unforgettable
+</div>
+
+</body>
+</html>
